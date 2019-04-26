@@ -127,25 +127,7 @@ public:
             }
             temp.push_back(res);
         }
-        if (i < base.size() )
-        {
-            while (i < base.size())
-            {
-                res = base[i] + remainder;
-                if (res > 9)
-                {
-                    remainder = 1;
-                    res = res - 10;
-                }
-                else
-                {
-                    remainder = 0;
-                }
-                temp.push_back(res);
-                i++;
-            }
-        }
-        else if (remainder > 0)
+        if (remainder > 0)
         {
             temp.push_back(remainder);
         }
@@ -165,8 +147,10 @@ public:
     {
         std::vector <int> temp;
         std::vector <int> sumres;
+        sumres.push_back(0);
         int i = 0, remainder = 0, res = 0;
-        if (a.size() < b.size())
+        
+        if (a.size() < b.size()) // In this particular part i would make vectors of the same size attributing zeros to the left side of these numbers
         {
             std::reverse( a.begin(), a.end() );
             while (a.size() < b.size())
@@ -184,21 +168,23 @@ public:
             }
             std::reverse( b.begin(), b.end() );
         }
+        
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
-        for (i = 0; i < b.size(); i++)
+        for (i = 0; i < a.size(); i++)
         {
-            res = b[i] * a[i] + remainder;
-            if (res > 9)
+            remainder = 0;
+            for (int j = 0; j < a.size(); j++)
             {
+                res = b[i] * a[j] + remainder;
                 remainder = res / 10;
                 res = res % 10;
+                temp.push_back(res);
             }
-            else
+            if (remainder > 0)
             {
-                remainder = 0;
+                temp.push_back(remainder);
             }
-
         }
     }
 };
@@ -209,9 +195,4 @@ int main()
     int k = 5;
     A.setY(3);
     A.setX(6);
-    A.GetY();
-    A.GetX();
-    A.Man();
-    A.GetX();
-    A.GetY();
 }

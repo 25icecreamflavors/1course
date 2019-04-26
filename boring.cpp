@@ -99,7 +99,6 @@ public:
                 base.push_back(0);
             }
             std::reverse( base.begin(), base.end() );
-            this->GetX();
         }
         else if (base.size() > add.size())
         {

@@ -185,7 +185,12 @@ public:
             }
             sumres = Add(sumres, temp);
         }
-        
+        std::reverse( sumres.begin(), sumres.end() );
+        while (sumres[sumres.size() - 1] == 0)
+        {
+            sumres.pop_back();
+        }
+        std::reverse( sumres.begin(), sumres.end() );
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
         return sumres;
@@ -202,7 +207,7 @@ int main()
 {
     Multiplicator A;
     int k = 5;
-    A.setX(3);
+    A.setX(6);
     A.setY(2);
     A.GetX();
     A.GetY();

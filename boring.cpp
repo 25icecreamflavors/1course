@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <fstream>
 #include <ctime>
 
 class Multiplicator
@@ -103,7 +104,7 @@ public:
     {
         for (int i = 0; i < time1.size(); i++)
         {
-            std::cout << time1[i] << " ";
+            std::cout << time1[i] << "\n";
         }
     }
     
@@ -217,6 +218,7 @@ public:
         t = clock() - t;
         return t;
     }
+    
     void TripleSchool(int k) // Function that will multiplicate random numbers exactly 3 times to count average time, some MachineLearning mechanisms were used here
     {
         double time = 0;
@@ -228,7 +230,17 @@ public:
         }
         time = time / 3;
         time1.push_back(time);
-        std::cout << time << "\n";
+    }
+    
+    void GetCSV()
+    { // Just gives you csv file with vector "time1" data, no useless comments, without unnecessary trouble, it has never been more convinient to get you csv file
+        std::ofstream myfile;
+        myfile.open ("TimeData.csv");
+        for (int i = 0; i < time1.size(); i++)
+        {
+            myfile << i + 1 << "," << time1[i] << "\n";
+        }
+        myfile.close();
     }
 };
 
@@ -236,10 +248,11 @@ int main()
 {
     Multiplicator A;
     int k = 1;
-    for (int i = 1; i < 10; i++)
+    for (int i = 1; i < 100; i++)
     {
         k = i;
         A.TripleSchool(k);
     }
     A.ShowTime1();
+    A.GetCSV();
 }

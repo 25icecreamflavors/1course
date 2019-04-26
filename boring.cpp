@@ -137,15 +137,8 @@ public:
         return temp;
     }
 
-    void Man() // temporary instrument, soon will be deleted
-    {
-        x = Add(x, y);
-        this-> GetY();
-    }
-
     std::vector <int> School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
     {
-        std::vector <int> temp;
         std::vector <int> sumres;
         sumres.push_back(0);
         int i = 0, remainder = 0, res = 0;
@@ -173,6 +166,7 @@ public:
         std::reverse( b.begin(), b.end() );
         for (i = 0; i < a.size(); i++)
         {
+            std::vector <int> temp;
             remainder = 0;
             for (int j = 0; j < a.size(); j++)
             {
@@ -185,7 +179,23 @@ public:
             {
                 temp.push_back(remainder);
             }
+            std::reverse( temp.begin(), temp.end() );
+            for (int m = 0; m < i; m++)
+            {
+                temp.push_back(0);
+            }
+            sumres = Add(sumres, temp);
         }
+        
+        std::reverse( a.begin(), a.end() );
+        std::reverse( b.begin(), b.end() );
+        return sumres;
+    }
+    
+    void Boi()
+    {
+        x = School(x, y);
+        GetX();
     }
 };
 
@@ -193,6 +203,9 @@ int main()
 {
     Multiplicator A;
     int k = 5;
+    A.setX(2);
     A.setY(3);
-    A.setX(6);
+    A.GetX();
+    A.GetY();
+    A.Boi();
 }

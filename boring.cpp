@@ -154,7 +154,7 @@ public:
         else if (a.size() > b.size())
         {
             std::reverse( b.begin(), b.end() );
-            while (a.size() < b.size())
+            while (a.size() > b.size())
             {
                 b.push_back(0);
             }
@@ -202,8 +202,8 @@ int main()
 {
     Multiplicator A;
     int k = 5;
-    A.setX(2);
-    A.setY(3);
+    A.setX(3);
+    A.setY(2);
     A.GetX();
     A.GetY();
     A.Boi();

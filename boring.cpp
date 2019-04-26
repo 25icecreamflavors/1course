@@ -10,24 +10,36 @@ protected:
     std::vector <int> x;
     std::vector <int> y;
 public:
-    Multiplicator()
+    Multiplicator() // default constructor will make your numbers equal to 0
     {
         x.push_back(0);
         y.push_back(0);
     }
-    Multiplicator(std::vector <int> a, std::vector <int> b): x(a), y(b) {}
+    Multiplicator(std::vector <int> a, std::vector <int> b): x(a), y(b) {} // another constructor if you want to create not zero nubmers, works with vectors
     
-    void setX(int k)
+    int GeneratorB() // Professional generator that will give you any digit from 1 to 9, in particular, I used it to define first digit in number
     {
-        std::vector <int> temp;
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> dis(1, 9);
-        temp.push_back(dis(gen));
+        return dis(gen);
+    }
+    
+    int Generator() // Professional generator that gives randomly any digit from 0 to 9, was constructed in 1337 year by villagers in Minecraft
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
         std::uniform_int_distribution<> ndis(0, 9);
+        return ndis(gen);
+    }
+    
+    void setX(int k) // This bad boi allows you to generate k-digit number
+    {
+        std::vector <int> temp;
+        temp.push_back(GeneratorB());
         for (int i = 1; i < k; i++)
         {
-            temp.push_back(ndis(gen));
+            temp.push_back(Generator());
         }
         if (k > 0)
         {
@@ -38,8 +50,8 @@ public:
             std::cout << "You are not able to create number with length 0 and less, please, enter another number which must be positive integer." << "\n";
         }
     }
-    
-    void GetX()
+
+    void GetX() // Shows current value of number X
     {
         for (int i = 0; i < x.size(); i++)
         {
@@ -47,18 +59,14 @@ public:
         }
         std::cout << "\n";
     }
-    
-    void setY(int k)
+
+    void setY(int k) // This bad boi allows you to generate k-digit number
     {
         std::vector <int> temp;
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(1, 9);
-        temp.push_back(dis(gen));
-        std::uniform_int_distribution<> ndis(0, 9);
+        temp.push_back(GeneratorB());
         for (int i = 1; i < k; i++)
         {
-            temp.push_back(ndis(gen));
+            temp.push_back(Generator());
         }
         if (k > 0)
         {
@@ -69,8 +77,8 @@ public:
             std::cout << "You are not able to create number with length 0 or less, please, enter another number which must be positive integer." << "\n";
         }
     }
-    
-    void GetY()
+
+    void GetY() // Shows current value of number Y
     {
         for (int i = 0; i < y.size(); i++)
         {
@@ -78,8 +86,8 @@ public:
         }
         std::cout << "\n";
     }
-    
-    std::vector <int> Add(std::vector <int> & base, std::vector <int> & add)
+
+    std::vector <int> Add(std::vector <int> & base, std::vector <int> & add) // Professional method that allows you to sum 2 numbers of any length
     {
         std::vector <int> temp;
         int remainder = 0, res = 0, i = 0;
@@ -99,9 +107,9 @@ public:
             {
                 remainder = 1;
                 res = res - 10;
-                
+
             }
-            else 
+            else
             {
                 remainder = 0;
             }
@@ -132,10 +140,41 @@ public:
         std::reverse( temp.begin(), temp.end() );
         return temp;
     }
-    void Man()
+
+    void Man() // temporary instrument, soon will be deleted
     {
         x = Add(x, y);
         this->GetX();
+    }
+
+    std::vector <int> School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
+    {
+        std::vector <int> temp;
+        std::vector <int> sumres;
+        int i = 0, remainder = 0, res = 0;
+        if (a.size() < b.size())
+        {
+            std::vector <int> swap;
+            swap = a;
+            a = b;
+            b = swap;
+        }
+        std::reverse( a.begin(), a.end() );
+        std::reverse( b.begin(), b.end() );
+        for (i = 0; i < b.size(); i++)
+        {
+            res = b[i] * a[i] + remainder;
+            if (res > 9)
+            {
+                remainder = res / 10;
+                res = res % 10;
+            }
+            else
+            {
+                remainder = 0;
+            }
+
+        }
     }
 };
 

@@ -93,10 +93,22 @@ public:
         int remainder = 0, res = 0, i = 0;
         if (base.size() < add.size())
         {
-            std::vector <int> swap;
-            swap = base;
-            base = add;
-            add = swap;
+            std::reverse( base.begin(), base.end() );
+            while (base.size() < add.size())
+            {
+                base.push_back(0);
+            }
+            std::reverse( base.begin(), base.end() );
+            this->GetX();
+        }
+        else if (base.size() > add.size())
+        {
+            std::reverse( add.begin(), add.end() );
+            while (base.size() > add.size())
+            {
+                add.push_back(0);
+            }
+            std::reverse( add.begin(), add.end() );
         }
         std::reverse( base.begin(), base.end() );
         std::reverse( add.begin(), add.end() );
@@ -137,6 +149,8 @@ public:
         {
             temp.push_back(remainder);
         }
+        std::reverse( base.begin(), base.end() );
+        std::reverse( add.begin(), add.end() );
         std::reverse( temp.begin(), temp.end() );
         return temp;
     }
@@ -144,7 +158,7 @@ public:
     void Man() // temporary instrument, soon will be deleted
     {
         x = Add(x, y);
-        this->GetX();
+        this-> GetY();
     }
 
     std::vector <int> School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
@@ -154,10 +168,21 @@ public:
         int i = 0, remainder = 0, res = 0;
         if (a.size() < b.size())
         {
-            std::vector <int> swap;
-            swap = a;
-            a = b;
-            b = swap;
+            std::reverse( a.begin(), a.end() );
+            while (a.size() < b.size())
+            {
+                a.push_back(0);
+            }
+            std::reverse( a.begin(), a.end() );
+        }
+        else if (a.size() > b.size())
+        {
+            std::reverse( b.begin(), b.end() );
+            while (a.size() < b.size())
+            {
+                b.push_back(0);
+            }
+            std::reverse( b.begin(), b.end() );
         }
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
@@ -182,9 +207,11 @@ int main()
 {
     Multiplicator A;
     int k = 5;
-    A.setY(6);
-    A.setX(3);
+    A.setY(3);
+    A.setX(6);
     A.GetY();
     A.GetX();
     A.Man();
+    A.GetX();
+    A.GetY();
 }

@@ -8,8 +8,10 @@
 class Multiplicator
 {
 protected:
-    std::vector <int> x;
-    std::vector <int> y;
+    std::vector <int> x; // vector that stores digits of the first number
+    std::vector <int> y; // vector that stores digits of the second number
+    std::vector <double> time1; //vector that stores execution time of the first algorithm
+    std::vector <double> time2; //vector that stores execution time of the second algorithm
 public:
     Multiplicator() // default constructor will make your numbers equal to 0
     {
@@ -46,7 +48,7 @@ public:
         {
             x = temp;
         }
-        else
+        else // higly developed protection based on neural networks, this condition will not allow to break this programm
         {
             std::cout << "You are not able to create number with length 0 and less, please, enter another number which must be positive integer." << "\n";
         }
@@ -73,7 +75,7 @@ public:
         {
             y = temp;
         }
-        else
+        else // higly developed protection based on neural networks, this condition will not allow to break this programm
         {
             std::cout << "You are not able to create number with length 0 or less, please, enter another number which must be positive integer." << "\n";
         }
@@ -88,13 +90,21 @@ public:
         std::cout << "\n";
     }
     
-    void GetThis(std::vector <int> & a) // Shows number that is stored in current vector
+    void GetThis(std::vector<int> & a) // Shows number that is stored in current vector
     {
         for (int i = 0; i < a.size(); i++)
         {
             std::cout << a[i];
         }
         std::cout << "\n";
+    }
+    
+    void ShowTime1() // This highly technological tool can be used to show data that is stored in vector time1. 
+    {
+        for (int i = 0; i < time1.size(); i++)
+        {
+            std::cout << time1[i] << " ";
+        }
     }
     
     std::vector <int> Add(std::vector <int> & base, std::vector <int> & add) // Professional method that allows you to sum 2 numbers of any length
@@ -146,7 +156,7 @@ public:
         return temp;
     }
 
-    double School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
+    double School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length, it has never been easier, thanks to out start-up
     {
         clock_t t = clock();
         std::vector <int> sumres;
@@ -207,28 +217,29 @@ public:
         t = clock() - t;
         return t;
     }
-    void TripleSchool()
+    void TripleSchool(int k) // Function that will multiplicate random numbers exactly 3 times to count average time, some MachineLearning mechanisms were used here
     {
-        int k = x.size();
         double time = 0;
         for (int i = 1; i <= 3; i++)
         {
-            time = time + School(x, y);
             setX(k);
             setY(k);
+            time = time + School(x, y);
         }
         time = time / 3;
-        std::cout << time;
+        time1.push_back(time);
+        std::cout << time << "\n";
     }
 };
 
 int main()
 {
     Multiplicator A;
-    int k = 5;
-    A.setX(3);
-    A.setY(3);
-    A.GetX();
-    A.GetY();
-    A.TripleSchool();
+    int k = 1;
+    for (int i = 1; i < 10; i++)
+    {
+        k = i;
+        A.TripleSchool(k);
+    }
+    A.ShowTime1();
 }

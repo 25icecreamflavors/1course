@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <ctime>
 
 class Multiplicator
 {
@@ -77,7 +78,7 @@ public:
             std::cout << "You are not able to create number with length 0 or less, please, enter another number which must be positive integer." << "\n";
         }
     }
-
+    
     void GetY() // Shows current value of number Y
     {
         for (int i = 0; i < y.size(); i++)
@@ -86,7 +87,16 @@ public:
         }
         std::cout << "\n";
     }
-
+    
+    void GetThis(std::vector <int> & a) // Shows number that is stored in current vector
+    {
+        for (int i = 0; i < a.size(); i++)
+        {
+            std::cout << a[i];
+        }
+        std::cout << "\n";
+    }
+    
     std::vector <int> Add(std::vector <int> & base, std::vector <int> & add) // Professional method that allows you to sum 2 numbers of any length
     {
         std::vector <int> temp;
@@ -136,8 +146,9 @@ public:
         return temp;
     }
 
-    std::vector <int> School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
+    double School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length
     {
+        clock_t t = clock();
         std::vector <int> sumres;
         sumres.push_back(0);
         int i = 0, remainder = 0, res = 0;
@@ -193,13 +204,21 @@ public:
         std::reverse( sumres.begin(), sumres.end() );
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
-        return sumres;
+        t = clock() - t;
+        return t;
     }
-    
-    void Boi()
+    void TripleSchool()
     {
-        x = School(x, y);
-        GetX();
+        int k = x.size();
+        double time = 0;
+        for (int i = 1; i <= 3; i++)
+        {
+            time = time + School(x, y);
+            setX(k);
+            setY(k);
+        }
+        time = time / 3;
+        std::cout << time;
     }
 };
 
@@ -207,9 +226,9 @@ int main()
 {
     Multiplicator A;
     int k = 5;
-    A.setX(6);
-    A.setY(2);
+    A.setX(3);
+    A.setY(3);
     A.GetX();
     A.GetY();
-    A.Boi();
+    A.TripleSchool();
 }

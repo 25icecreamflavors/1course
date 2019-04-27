@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import csv
 import webbrowser
-webbrowser.open('https://www.youtube.com/watch?v=PcHUnnb7s6w')
-webbrowser.open('https://www.youtube.com/watch?v=UcLoJFVner0')
 x=[]
 y=[]
 
@@ -12,10 +10,9 @@ with open('TimeData1.csv', 'r') as csvfile:
         x.append(float(row[0]))
         y.append(float(row[1]))
 
+plt.plot(x,y, marker='', color='green')
 
-plt.plot(x,y, marker='')
-
-plt.title('')
+plt.title('Algorithm Performance')
 
 plt.xlabel('Number of digits')
 plt.ylabel('Time in milliseconds')

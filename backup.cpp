@@ -264,24 +264,21 @@ public:
     }
     
         
-    std::vector<int> pro( std::vector<int>& x,  std::vector<int>& y)
+    std::vector<int> pro( std::vector<int> x,  std::vector<int> y)
     {
-        long long int len = max(x.size(), y.size());
-        if (y.size() < x.size())
+        while(x.size() < y.size())
         {
-            y = Extend(x.size(), y);
+            std::reverse( x.begin(), x.end() );
+            x.push_back(0);
+            std::reverse( x.begin(), x.end() );
         }
-        else if (x.size() < y.size())
+        while(x.size() > y.size())
         {
-            x = Extend(y.size(), x);
+            std::reverse( y.begin(), y.end() );
+            y.push_back(0);
+            std::reverse( y.begin(), y.end() );
         }
-        if (y.size() % 2 != 0)
-        {
-            y = Extend(x.size() + 1, y);
-            x = Extend(x.size() + 1, x);
-        }
-        
-        long long int len = max(x.size(), y.size());
+        long long int len = std::max(x.size(), y.size());
         std::vector<int> res;
         std::vector<int> aPlusb;
         std::vector<int> cPlusd;
@@ -300,7 +297,7 @@ public:
         std::vector<int> bd = pro(b, d);
         aPlusb = Add(a, b);
         cPlusd = Add(c, d);
-        std::vector<int> abcd pro(aPlusb, cPlusd);
+        std::vector<int> abcd = pro(aPlusb, cPlusd);
         
         abcd = Minus(abcd, ac);
         abcd = Minus(abcd, bd);
@@ -319,7 +316,7 @@ public:
         return res;
     }
     
-    std::vector <int> Minus(std::vector <int> & a, std::vector <int> & b)
+    std::vector <int> Minus(std::vector <int> a, std::vector <int> b)
     {
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
@@ -364,7 +361,7 @@ public:
 int main()
 {
     Multiplicator A;
-    A.setY(3);
+    A.setY(5);
     A.setX(5);
     A.GetX();
     A.GetY();

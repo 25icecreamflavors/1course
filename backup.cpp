@@ -235,7 +235,7 @@ public:
         myfile.close();
     }
         
-    std::vector<int> pro( std::vector<int> x,  std::vector<int> y)
+    std::vector<int> pro( std::vector<int> x,  std::vector<int> y) // Doesn't work properly and ruins all program
     {
         while(x.size() < y.size())
         {

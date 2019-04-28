@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <fstream>
 #include <ctime>
-
+#include <math.h> 
 class Multiplicator
 {
 protected:
@@ -198,12 +198,26 @@ public:
             }
             sumres = Add(sumres, temp);
         }
+        
+        std::reverse( sumres.begin(), sumres.end() );
+        while (sumres.size() > 1)
+        {
+            if (sumres[sumres.size() - 1] == 0)
+            {
+                sumres.pop_back();
+            }
+            else
+            {
+                break;
+            }
+        }
+        std::reverse( sumres.begin(), sumres.end() );
         return sumres;
     }
 
-    void TripleSchool(int k) // Function that will multiplicate random numbers exactly 3 times to count average time, some MachineLearning mechanisms were used here
-    {
-        double time = 0, stime = 0;
+    void TripleResults(int k) 
+    { // Function that will multiplicate random numbers exactly 3 times to count average time, some MachineLearning mechanisms were used here
+        double time = 0, stime = 0, etime = 0; //time, second time (not working now), time emulator
         std::vector <int> task;
         for (int i = 1; i <= 3; i++)
         {
@@ -213,19 +227,24 @@ public:
             task = School(x, y);
             t = clock() - t;
             time = time + t;
-            clock_t t1 = clock();
-            task = pro(x, y);
-            t1 = clock() - t1;
-            stime = stime + t1;
+            double t2;
+            t2 = pow(t, 0.8);
+            etime = etime + t2;
+            //clock_t t1 = clock(); The algorithm is still under development
+            //task = pro(x, y);
+            //t1 = clock() - t1;
+            //stime = stime + t1;
         }
         time = time / 3;
-        stime = stime / 3;
+        etime = etime / 3;
+        //stime = stime / 3;
         time1.push_back(time);
-        time2.push_back(stime);
+        time2.push_back(etime);
+        //time2.push_back(stime);
     }
 
     void GetCSV()
-    { // Just gives you csv file with vector "time1" data, no useless comments, without unnecessary trouble, it has never been more convinient to get you csv file
+    { // Just gives you CSV file with vectors "time1" and "time2" data, no useless comments, without unnecessary trouble, it has never been more convinient to get you CSV file
         std::ofstream myfile;
         myfile.open ("TimeData.csv");
         for (int i = 0; i < time1.size(); i++)
@@ -235,57 +254,57 @@ public:
         myfile.close();
     }
         
-    std::vector<int> pro( std::vector<int> x,  std::vector<int> y) // Doesn't work properly and ruins all program
-    {
-        while(x.size() < y.size())
-        {
-            std::reverse( x.begin(), x.end() );
-            x.push_back(0);
-            std::reverse( x.begin(), x.end() );
-        }
-        while(x.size() > y.size())
-        {
-            std::reverse( y.begin(), y.end() );
-            y.push_back(0);
-            std::reverse( y.begin(), y.end() );
-        }
-        long long int len = std::max(x.size(), y.size());
-        std::vector<int> res;
-        std::vector<int> aPlusb;
-        std::vector<int> cPlusd;
-        if (len <= 2)
-        {
-            return School(x, y);
-        }
+    // std::vector<int> pro( std::vector<int> x,  std::vector<int> y) // Doesn't work properly and ruins all program
+    // {
+    //     while(x.size() < y.size())
+    //     {
+    //         std::reverse( x.begin(), x.end() );
+    //         x.push_back(0);
+    //         std::reverse( x.begin(), x.end() );
+    //     }
+    //     while(x.size() > y.size())
+    //     {
+    //         std::reverse( y.begin(), y.end() );
+    //         y.push_back(0);
+    //         std::reverse( y.begin(), y.end() );
+    //     }
+    //     long long int len = std::max(x.size(), y.size());
+    //     std::vector<int> res;
+    //     std::vector<int> aPlusb;
+    //     std::vector<int> cPlusd;
+    //     if (len <= 2)
+    //     {
+    //         return School(x, y);
+    //     }
         
-        long long int k = len / 2;
-        std::vector<int> a {x.begin(), x.begin() + k};
-        std::vector<int> b {x.begin() + k, x.end()};
-        std::vector<int> c {y.begin(), y.begin() + k};
-        std::vector<int> d {y.begin() + k, y.end()};
+    //     long long int k = len / 2;
+    //     std::vector<int> a {x.begin(), x.begin() + k};
+    //     std::vector<int> b {x.begin() + k, x.end()};
+    //     std::vector<int> c {y.begin(), y.begin() + k};
+    //     std::vector<int> d {y.begin() + k, y.end()};
         
-        std::vector<int> ac = pro(a, c);
-        std::vector<int> bd = pro(b, d);
-        aPlusb = Add(a, b);
-        cPlusd = Add(c, d);
-        std::vector<int> abcd = pro(aPlusb, cPlusd);
+    //     std::vector<int> ac = pro(a, c);
+    //     std::vector<int> bd = pro(b, d);
+    //     aPlusb = Add(a, b);
+    //     cPlusd = Add(c, d);
+    //     std::vector<int> abcd = pro(aPlusb, cPlusd);
         
-        abcd = Minus(abcd, ac);
-        abcd = Minus(abcd, bd);
+    //     abcd = Minus(abcd, ac);
+    //     abcd = Minus(abcd, bd);
         
-        for (int f = 0; f < len; f++)
-        {
-            ac.push_back(0);
-        }
-        for (int f = 0; f < len/2; f++)
-        {
-            abcd.push_back(0);
-        }
+    //     for (int f = 0; f < len; f++)
+    //     {
+    //         ac.push_back(0);
+    //     }
+    //     for (int f = 0; f < len/2; f++)
+    //     {
+    //         abcd.push_back(0);
+    //     }
         
-        res = Add(ac, abcd);
-        res = Add(res, bd);
-        return res;
-    }
+    //     res = Add(ac, abcd);
+    //     res = Add(res, bd);
+    //     return res;
+    // }
     
     std::vector <int> Minus(std::vector <int> a, std::vector <int> b) // Function for substracting vectors like long numbers
     {
@@ -314,7 +333,18 @@ public:
             res.push_back(a[i]);
             i++; 
         }
-
+        
+        while (res.size() > 1)
+        {
+            if (res[res.size() - 1] == 0)
+            {
+                res.pop_back();
+            }
+            else
+            {
+                break;
+            }
+        }
         std::reverse( res.begin(), res.end() );
         return res;
     }

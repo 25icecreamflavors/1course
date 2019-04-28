@@ -244,25 +244,6 @@ public:
         }
         myfile.close();
     }
-    
-    std::vector <int> Extend(long long int n, std::vector <int> & v) // function for extending vector to size of n elements adding zeros to the beginning of it
-    {
-        if (v.size() >= n)
-        {
-            return v;
-        }
-        else
-        {
-            std::reverse( v.begin(), v.end() );
-            while (v.size() < n)
-            {
-                v.push_back(0);
-            }
-            std::reverse( v.begin(), v.end() );
-        }
-        return v;
-    }
-    
         
     std::vector<int> pro( std::vector<int> x,  std::vector<int> y)
     {
@@ -361,8 +342,8 @@ public:
 int main()
 {
     Multiplicator A;
-    A.setY(5);
-    A.setX(5);
+    A.setY(15);
+    A.setX(15);
     A.GetX();
     A.GetY();
     A.Boi();

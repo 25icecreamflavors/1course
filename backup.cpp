@@ -91,7 +91,7 @@ public:
         std::cout << "\n";
     }
 
-    void GetThis(std::vector<int> & a) // Shows number that is stored in current vector
+    void GetThis(std::vector<int> a) // Shows number that is stored in current vector
     {
         for (int i = 0; i < a.size(); i++)
         {
@@ -99,16 +99,8 @@ public:
         }
         std::cout << "\n";
     }
-
-    void ShowTime1() // This highly technological tool can be used to show data that is stored in vector time1.
-    {
-        for (int i = 0; i < time1.size(); i++)
-        {
-            std::cout << time1[i] << "\n";
-        }
-    }
-
-    std::vector <int> Add(std::vector <int> & base, std::vector <int> & add) // Professional method that allows you to sum 2 numbers of any length
+    
+    std::vector <int> Add(std::vector <int> base, std::vector <int> add) // Professional method that allows you to sum 2 numbers of any length
     {
         std::vector <int> temp;
         int remainder = 0, res = 0, i = 0;
@@ -157,7 +149,7 @@ public:
         return temp;
     }
 
-    std::vector <int> School(std::vector <int> & a, std::vector <int> & b) // Multiplication of 2 numbers of any length, it has never been easier, thanks to out start-up
+    std::vector <int> School(std::vector <int> a, std::vector <int> b) // Multiplication of 2 numbers of any length, it has never been easier, thanks to out start-up
     {
         std::vector <int> sumres;
         sumres.push_back(0);
@@ -206,17 +198,12 @@ public:
             }
             sumres = Add(sumres, temp);
         }
-        std::reverse( sumres.begin(), sumres.end() );
-
-        std::reverse( sumres.begin(), sumres.end() );
-        std::reverse( a.begin(), a.end() );
-        std::reverse( b.begin(), b.end() );
         return sumres;
     }
 
     void TripleSchool(int k) // Function that will multiplicate random numbers exactly 3 times to count average time, some MachineLearning mechanisms were used here
     {
-        double time = 0;
+        double time = 0, stime = 0;
         std::vector <int> task;
         for (int i = 1; i <= 3; i++)
         {
@@ -226,9 +213,15 @@ public:
             task = School(x, y);
             t = clock() - t;
             time = time + t;
+            clock_t t1 = clock();
+            task = pro(x, y);
+            t1 = clock() - t1;
+            stime = stime + t1;
         }
         time = time / 3;
+        stime = stime / 3;
         time1.push_back(time);
+        time2.push_back(stime);
     }
 
     void GetCSV()
@@ -237,7 +230,7 @@ public:
         myfile.open ("TimeData.csv");
         for (int i = 0; i < time1.size(); i++)
         {
-            myfile << i + 1 << "," << time1[i] << "\n";
+            myfile << i + 1 << "," << time1[i] << "," << time2[i] << "\n";
         }
         myfile.close();
     }
@@ -294,7 +287,7 @@ public:
         return res;
     }
     
-    std::vector <int> Minus(std::vector <int> a, std::vector <int> b)
+    std::vector <int> Minus(std::vector <int> a, std::vector <int> b) // Function for substracting vectors like long numbers
     {
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
@@ -319,26 +312,21 @@ public:
                 a[i+1] = a[i+1] - 1;
             }
             res.push_back(a[i]);
-            i++;
+            i++; 
         }
+
         std::reverse( res.begin(), res.end() );
         return res;
-    }
-    
-    void Boi()
-    {
-        x = pro(x, y);
-        this->GetX();
     }
 };
 
 int main()
 {
     Multiplicator A;
-    A.setY(50);
-    A.setX(50);
-    A.GetX();
-    A.GetY();
-    A.Boi();
+    for (int k = 1; k < 7; k++)
+    {
+        A.TripleSchool(k);
+    }
+    A.GetCSV();
 }
 

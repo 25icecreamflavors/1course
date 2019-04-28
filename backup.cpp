@@ -207,10 +207,7 @@ public:
             sumres = Add(sumres, temp);
         }
         std::reverse( sumres.begin(), sumres.end() );
-        while (sumres[sumres.size() - 1] == 0)
-        {
-            sumres.pop_back();
-        }
+
         std::reverse( sumres.begin(), sumres.end() );
         std::reverse( a.begin(), a.end() );
         std::reverse( b.begin(), b.end() );
@@ -324,10 +321,6 @@ public:
             res.push_back(a[i]);
             i++;
         }
-        while (res[res.size() - 1] == 0)
-        {
-            res.pop_back();
-        }
         std::reverse( res.begin(), res.end() );
         return res;
     }
@@ -342,8 +335,8 @@ public:
 int main()
 {
     Multiplicator A;
-    A.setY(15);
-    A.setX(15);
+    A.setY(50);
+    A.setX(50);
     A.GetX();
     A.GetY();
     A.Boi();

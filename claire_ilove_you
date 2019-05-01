@@ -5,7 +5,7 @@
 
 class Number {
 public:
-    std::string number; // Your number
+    std::string num; // Your number
     int length = num.length(); // Length of your number
  
     Number() // Best constructor to construct empty string
@@ -37,7 +37,7 @@ public:
     
     Number Addition(const Number& a, const Number& b)
     {
-        Number new;
+        Number neww;
         int len1 = a.num.length() - 1;
         int len2 = b.num.length() - 1;
         int remainder = 0, res = 0;
@@ -53,7 +53,8 @@ public:
             {
                 remainder = 0;
             }
-            new.num = new.num + (res + '0');
+            char t = res + '0';
+            neww.num = neww.num + t;
             len1--;
             len2--;
         }
@@ -61,7 +62,7 @@ public:
         {
             while (len1 >= 0)
             {
-                res = (a.num[i] - '0') + remainder;
+                res = (a.num[len1] - '0') + remainder;
                 if (res > 9)
                 {
                     res = res - 10;
@@ -71,7 +72,8 @@ public:
                 {
                     remainder = 0;
                 }
-                new.num = new.num + (res + '0');
+                char tt = res + '0';
+                neww.num = neww.num + tt;
                 len1--;
             }
         }
@@ -89,13 +91,25 @@ public:
                 {
                     remainder = 0;
                 }
-                new.num = new.num + (res + '0');
+                char ttt = res + '0';
+                neww.num = neww.num + ttt;
                 len2--;
             }
         }
         if (remainder > 0)
         {
-            new.num = new.num + (remainder + '0');
+            char tttt = remainder + '0';
+            neww.num = neww.num + tttt;
         }
-        return new;
+        return neww;
     }
+};
+
+int main()
+{
+    Number a,b,c;
+    a.Number("12345");
+    b.Number("52");
+    c.Number();
+    c = Addition(a,b);
+}

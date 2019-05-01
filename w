@@ -32,7 +32,7 @@ public:
         {
             length = num.length()-1;
         }
-        return num[length] - '0'; 
+        return num[length] - 48; 
     }
     
     static Number Addition(const Number& a, const Number& b)
@@ -232,13 +232,14 @@ public:
     static Number School(Number &a, Number &b)
     {
         Number result = Number("0");
-        Number res;
+        Number res = Number("");
         std::string s;
         char q;
         int i, j, digit, temp;
         int remainder = 0;
         for(i = 0; i < b.num.length(); i++)
         {
+            remainder = 0;
             s = "";
             digit = b.GetDigit();
             for (j = 0; j < a.num.length(); j++)
@@ -281,7 +282,7 @@ public:
         }
         else if (a.num.length() < b.num.length())
         {
-            while (b.num.length() < a.num.length())
+            while (b.num.length() > a.num.length())
             {
                 a.num = '0' + a.num;
             }
@@ -327,15 +328,60 @@ public:
             return res;
         }
     }
+    
+    int GeneratorB() // Professional generator that will give you any digit from 1 to 9, in particular, I used it to define first digit in number
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(1, 9);
+        return dis(gen);
+    }
+    int Generator() // Professional generator that gives randomly any digit from 0 to 9, was constructed in 1337 year by villagers in Minecraft
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> ndis(0, 9);
+        return ndis(gen);
+    }
+    std::string GeneratorGeorge(int k) // Now we will generate the whole string of length k with the respect to George and Peppa.
+    {
+        std::string Peppa;
+        int digit = GeneratorB();
+        char q;
+        q = digit + '0';
+        Peppa = Peppa + q;
+        for (int i = 1; i < k; i++)
+        {
+            digit = Generator();
+            q = digit + '0';
+            Peppa = Peppa + q;
+        }
+        return Peppa;
+    }
+    
+    void Results(int k)
+    {
+        std::string x,y;
+        Number a,b,c;
+        for(int i = 1; i <= k; i++)
+        {
+            x = GeneratorGeorge(i);
+            std::cout << x << "\n";
+            y = GeneratorGeorge(i);
+            std::cout << y << "\n";
+            a = Number(x);
+            b = Number(y);
+            c = School(a,b);
+            std::cout << c.num << "\n";
+            c = pro(a,b);
+            std::cout << c.num << "\n\n";
+        }
+    }
 };
 
 int main()
 {
     Number a,b,c;
-    a = Number("150");
-    b = Number("15");
-    c = Multiplicator::School(a,b);
-    std::cout << c.num << "\n";
-    c = Multiplicator::pro(a,b);
-    std::cout << c.num << "\n";
+    Multiplicator q;
+    q.Results(11);
 }

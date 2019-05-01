@@ -101,15 +101,23 @@ public:
             char tttt = remainder + '0';
             neww.num = neww.num + tttt;
         }
+        reverse(neww.num.begin(), neww.num.end());
         return neww;
+    }
+    void Get(Number & a)
+    {
+        for (int i = 0; i < a.num.length(); i++)
+        {
+            std::cout << a.num[i];
+        }
     }
 };
 
 int main()
 {
     Number a,b,c;
-    a.Number("12345");
-    b.Number("52");
-    c.Number();
-    c = Addition(a,b);
+    a = Number("10345");
+    b = Number("522919");
+    c = c.Addition(a,b);
+    c.Get(c);
 }

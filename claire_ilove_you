@@ -1,0 +1,101 @@
+#include <iostream>
+#include <algorithm>
+#include <random>
+#include <string>
+
+class Number {
+public:
+    std::string number; // Your number
+    int length = num.length(); // Length of your number
+ 
+    Number() // Best constructor to construct empty string
+    {
+        num = "";
+    }
+ 
+    Number (std::string tonumber) // Construsctor to construct number using string. In our start-up we call it from the string to the number.
+    {
+        num = tonumber;
+        length = num.length();
+    }
+ 
+    Number (size_t a) // One more rather useless constructor, but we built it because of flex.
+    {
+        num = std::to_string(a);
+        length = num.length();
+    }
+ 
+    int GetDigit() // Converting char to integers
+    {
+        length--;
+        if(length == -1)
+        {
+            length = num.length()-1;
+        }
+        return num[length] - 48; 
+    }
+    
+    Number Addition(const Number& a, const Number& b)
+    {
+        Number new;
+        int len1 = a.num.length() - 1;
+        int len2 = b.num.length() - 1;
+        int remainder = 0, res = 0;
+        while ((len1 >= 0) && (len2 >= 0))
+        {
+            res = (a.num[len1] - '0') + (b.num[len2] - '0') + remainder;
+            if (res > 9)
+            {
+                res = res - 10;
+                remainder = 1;
+            }
+            else 
+            {
+                remainder = 0;
+            }
+            new.num = new.num + (res + '0');
+            len1--;
+            len2--;
+        }
+        if (len1 >= 0)
+        {
+            while (len1 >= 0)
+            {
+                res = (a.num[i] - '0') + remainder;
+                if (res > 9)
+                {
+                    res = res - 10;
+                    remainder = 1;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+                new.num = new.num + (res + '0');
+                len1--;
+            }
+        }
+        else if (len2 >= 0)
+        {
+            while (len2 >= 0)
+            {
+                res = (b.num[len2] - '0') + remainder;
+                if (res > 9)
+                {
+                    res = res - 10;
+                    remainder = 1;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+                new.num = new.num + (res + '0');
+                len2--;
+            }
+        }
+        if (remainder > 0)
+        {
+            new.num = new.num + (remainder + '0');
+        }
+        return new;
+    }

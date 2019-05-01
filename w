@@ -270,7 +270,7 @@ public:
         }
         return result;    
     }
-    static pro(Number a, Number b)
+    static Number pro(Number a, Number b)
     {
         if (a.num.length() > b.num.length())
         {
@@ -307,11 +307,24 @@ public:
             Number aplusc = Number::Addition(aa, cc);
             Number bplusd = Number::Addition(bb, dd);
             Number abcd = pro(aplusc, bplusd);
-            Number abcd = Number::Minus(abcd, aabb);
-            Number abcd = Number::Minus(abcd, ccdd);
+            abcd = Number::Minus(abcd, aabb);
+            abcd = Number::Minus(abcd, ccdd);
             aabb.num = aabb.num + zero + zero;
             abcd.num = abcd.num + zero;
             Number res = Number::Addition(aabb, abcd);
+            res = Number::Addition(res, ccdd);
+            for(int i = 0; i < res.num.length() - 1; i++)
+            {
+                if (res.num[0] == '0')
+                {
+                    res.num.erase(0,1);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return res;
         }
     }
 };
@@ -319,8 +332,10 @@ public:
 int main()
 {
     Number a,b,c;
-    a = Number("120");
-    b = Number("0");
+    a = Number("150");
+    b = Number("15");
     c = Multiplicator::School(a,b);
-    std::cout << c.num;
+    std::cout << c.num << "\n";
+    c = Multiplicator::pro(a,b);
+    std::cout << c.num << "\n";
 }

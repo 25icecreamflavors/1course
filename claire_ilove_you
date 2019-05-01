@@ -189,6 +189,41 @@ public:
             std::cout << a.num[i];
         }
     }
+    
+    Number GetLeft()
+    {
+        int length = num.length();
+        if(length == 1)
+        {
+            return Number("0");
+        }
+        std::string s = this->num.substr(0, length/2);
+        if (s.empty())
+        {
+            return Number("0");
+        }
+        else
+        {
+            return Number(s);
+        }
+    }
+    Number GetRight()
+    {
+        int length = num.length();
+        if(length == 1)
+        {
+            return *this;
+        }
+        std::string s = this->num.substr(length/2, length - 1);
+        if (s.empty())
+        {
+            return Number("0");
+        }
+        else
+        {
+            return Number(s);
+        }        
+    }
 };
 
 int main()

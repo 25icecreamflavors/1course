@@ -104,6 +104,84 @@ public:
         reverse(neww.num.begin(), neww.num.end());
         return neww;
     }
+    
+    Number Minus(const Number& a, const Number& b)
+    {
+        Number c;
+        int len1 = a.num.length() - 1;
+        int len2 = b.num.length() - 1;
+        int remainder = 0, res = 0;
+        char id;
+        while ((len1 >= 0) && (len2 >= 0))
+        {
+            res = a.num[len1] - b.num[len2] - remainder;
+            if (res < 0)
+            {
+                res = res + 10;
+                remainder = 1;
+            }
+            else 
+            {
+                remainder = 0;
+            }
+            id = res + '0';
+            c.num = c.num + id;
+            len1--;
+            len2--;
+        }
+        if (len1 >= 0)
+        {
+            while(len1 >= 0)
+            {
+                res = (a.num[len1] - '0') - remainder;
+                if (res < 0)
+                {
+                    res = res + 10;
+                    remainder = 1;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+                id = res + '0';
+                c.num = c.num + id;
+                len1--;
+            }
+        }
+        else if (len2 >= 0)
+        {
+            while(len2 >= 0)
+            {
+                res = (b.num[len2] - '0') - remainder;
+                if (res < 0)
+                {
+                    res = res + 10;
+                    remainder = 1;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+                id = res + '0';
+                c.num = c.num + '0';
+                len2--;
+            }
+        }
+        for (int n = c.num.length() - 1; n > 0; n--)
+        {
+            if (c.num[n] == '0')
+            {
+                c.num.pop_back();
+            }
+            else
+            {
+                break;
+            }
+        }
+        reverse(c.num.begin(), c.num.end());
+        return c;
+    }
+
     void Get(Number & a)
     {
         for (int i = 0; i < a.num.length(); i++)
@@ -116,8 +194,8 @@ public:
 int main()
 {
     Number a,b,c;
-    a = Number("10345");
-    b = Number("522919");
-    c = c.Addition(a,b);
+    a = Number("1000009");
+    b = Number("1000001");
+    c = c.Minus(a,b);
     c.Get(c);
 }

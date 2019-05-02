@@ -17,8 +17,8 @@ x=[]
 y=[]
 x1=[]
 y1=[]
-print("Olive line is for School method of multiplication")
-print("Purple line is for Karatsuba method")
+print("Purple line is for School method of multiplication")
+print("Olive line is for Karatsuba method")
 with open('TimeData.csv', 'r') as csvfile:
     plots= csv.reader(csvfile, delimiter=',')
     for row in plots:
@@ -28,6 +28,8 @@ with open('TimeData.csv', 'r') as csvfile:
         y.append(float(row[1]))
         x1.append(float(row[0]))
         y1.append(float(row[2]))
+        ax.clear()
+        ax1.clear()
         ax.plot(x, y, marker = '', color='indigo')
         ax1.plot(x1,y1, marker='', color='olive')
         plt.xlabel('Number of digits')

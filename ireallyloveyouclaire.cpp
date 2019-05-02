@@ -38,7 +38,7 @@ public:
         return num[length] - 48; 
     }
     
-    static Number Addition(const Number& a, const Number& b)
+    static Number Addition(const Number& a, const Number& b) // Professional method that allows you to sum 2 numbers of any length
     {
         Number neww;
         int len1 = a.num.length() - 1;
@@ -234,7 +234,7 @@ class Multiplicator
 public:
     std::vector <double> time1;
     std::vector <double> time2;
-    static Number School(Number &a, Number &b)
+    static Number School(Number &a, Number &b) // Multiplication of 2 numbers of any length, it has never been easier, thanks to out start-up
     {
         Number result = Number("0");
         Number res = Number("");
@@ -276,7 +276,7 @@ public:
         }
         return result;    
     }
-    static Number pro(Number a, Number b)
+    static Number pro(Number a, Number b) // Another method to multiply numbers with a little bit of an artistic flair
     {
         if (a.num.length() > b.num.length())
         {
@@ -364,7 +364,7 @@ public:
         return Peppa;
     }
     
-    void Results(int k)
+    void Results(int k) //Grand final of our project, I burst into tears after we had done this
     {
         std::string x,y;
         Number a,b,c;

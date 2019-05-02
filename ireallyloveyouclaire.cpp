@@ -408,7 +408,7 @@ int main()
     Number a,b,c;
     int k;
     Multiplicator q;
-    for (k = 1; k <= 1000; k++)
+    for (k = 1; k <= 1000000; k++)
     {
         q.Results(k);
     }

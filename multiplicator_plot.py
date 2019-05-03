@@ -10,7 +10,6 @@ import webbrowser
 style.use('classic')
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
-ax1 = fig.add_subplot(1,1,1)
 fig.show()
 
 x=[]
@@ -29,7 +28,7 @@ with open('TimeData.csv', 'r') as csvfile:
         y1.append(float(row[2]))
         
         ax.plot(x, y, marker = '', color='indigo', label='School multiplication')
-        ax1.plot(x1,y1, marker='', color='olive', label='Karatsuba')
+        ax.plot(x1, y1, marker='', color='olive', label='Karatsuba')
         pylab.legend(loc='upper left')
         plt.xlabel('Number of digits')
         plt.ylabel('Time in milliseconds')

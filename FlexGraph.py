@@ -7,7 +7,6 @@ import psutil
 import pylab
 %matplotlib notebook
 
-
 style.use('bmh')
 
 fig = plt.figure()
@@ -18,7 +17,7 @@ plt.ylabel('Time in milliseconds')
 plt.title('Algorithm Performance')
 ax1.set_facecolor('#1b212cff')
 
-plotlays, plotcols, labels = [2], ["white","grey"], ['School multiplication', 'Karatsuba']
+plotlays, plotcols, labels = [2], ["#d9d9d9ff","#cc0000"], ['School multiplication', 'Karatsuba']
 lines = []
 for index in range(2):
     lobj = ax1.plot([],[] ,lw=2, color=plotcols[index], label = labels[index])[0]
@@ -49,13 +48,11 @@ def animate(i):
     xlist = [x1[:i], x2[:i]]
     ylist = [y1[:i], y2[:i]]
 
-    #for index in range(0,1):
     for lnum,line in enumerate(lines):
-        line.set_data(xlist[lnum], ylist[lnum]) # set data for each line separately. 
+        line.set_data(xlist[lnum], ylist[lnum])
 
     return lines
 
-# call the animator.  blit=True means only re-draw the parts that have changed.
 anim = animation.FuncAnimation(fig, animate, init_func=init,
                                frames=frame_num, interval=6)
 

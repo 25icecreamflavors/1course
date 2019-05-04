@@ -8,7 +8,7 @@ import pylab
 %matplotlib notebook
 
 
-style.use('seaborn-whitegrid')
+style.use('bmh')
 
 fig = plt.figure()
 ax1 = plt.axes(xlim=(0, 1000), ylim=(0,600000))
@@ -16,11 +16,12 @@ line, = ax1.plot([], [], lw=2)
 plt.xlabel('Number of digits')
 plt.ylabel('Time in milliseconds')
 plt.title('Algorithm Performance')
+ax1.set_facecolor('#1b212cff')
 
-plotlays, plotcols, labels = [2], ["purple","black"], ['School multiplication', 'Karatsuba']
+plotlays, plotcols, labels = [2], ["white","grey"], ['School multiplication', 'Karatsuba']
 lines = []
 for index in range(2):
-    lobj = ax1.plot([],[],lw=2,color=plotcols[index], label = labels[index])[0]
+    lobj = ax1.plot([],[] ,lw=2, color=plotcols[index], label = labels[index])[0]
     lines.append(lobj)
 
 pylab.legend(loc='upper left')
@@ -56,6 +57,6 @@ def animate(i):
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
 anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=frame_num, interval=6.7)
+                               frames=frame_num, interval=6)
 
 plt.show()

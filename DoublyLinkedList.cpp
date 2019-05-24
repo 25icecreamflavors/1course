@@ -16,7 +16,7 @@ class LinkedList
   int m_size = 0;
 
 public:
-  LinkedList():Head(NULL),Tail(NULL){};
+  LinkedList():Head(nullptr),Tail(nullptr){};
   int size ()
   {
     return m_size;
@@ -32,12 +32,12 @@ public:
     }
     else if (pos > m_size)
     {
-      return NULL;
+      return nullptr;
     }
     else if (pos == 0)
     {
       m_size++;
-      temp->prev = NULL;
+      temp->prev = nullptr;
       temp->next = Head;
       Head->prev = temp;
       Head = temp;
@@ -61,16 +61,16 @@ public:
       temp->value = value;
       return temp;
     }
-    return NULL;
+    return nullptr;
   }
 
   /*Inserts node with input value in the end of the list */
   Node<T> *push_back (T value)
   {
     Node<T> *temp = new Node<T>;
-    temp->next = NULL;
+    temp->next = nullptr;
     temp->value = value;
-    if (Head != NULL)
+    if (Head != nullptr)
     {
       temp->prev = Tail;
       Tail->next = temp;
@@ -78,7 +78,7 @@ public:
     }
     else
     {
-      temp->prev = NULL;
+      temp->prev = nullptr;
       Head = Tail = temp;
     }
     m_size++;
@@ -89,13 +89,13 @@ public:
   Node<T> *find (T value)
   {
     Node<T> *temp = Head;
-    if(temp == NULL)
+    if(temp == nullptr)
     {
-      return NULL;
+      return nullptr;
     }
     else
     {
-      while(temp != NULL)
+      while(temp != nullptr)
       {
         if(temp->value == value)
         {
@@ -103,14 +103,14 @@ public:
         }
         temp = temp->next;
       }
-      return NULL;
+      return nullptr;
     }
   }
   
   /*removes input node*/
   void remove (Node<T> *node)
   {
-    if (Head == NULL || node == NULL)
+    if (Head == nullptr || node == nullptr)
     {
       return;
     }
@@ -118,11 +118,11 @@ public:
     {
       Head = node->next;
     }
-    if (node->next != NULL)
+    if (node->next != nullptr)
     {
       node->next->prev = node->prev;
     }
-    if (node->prev != NULL)
+    if (node->prev != nullptr)
     {
       node->prev->next = node->next;
     }
@@ -134,12 +134,12 @@ public:
   void reverse ()
   {
     Node<T> *save = Head;
-    while(save != NULL)
+    while(save != nullptr)
     {
       Node<T> *tmp = save->next;
       save->next = save->prev;
       save->prev = tmp;
-      if (tmp == NULL)
+      if (tmp == nullptr)
       {
         Tail = Head;
         Head = save;
@@ -164,11 +164,12 @@ public:
   void print_list ()
   {
     Node<T> *temp = Head;
-    while (temp != NULL)
+    while (temp != nullptr)
     {
       std::cout << temp->value << " ";
       temp = temp->next;
     }
+    std::cout << "\n";
   }
 
   ~LinkedList ()
@@ -178,12 +179,19 @@ public:
 
 int main()
 {
+  Node<int> *temp = new Node<int>;
   LinkedList<int> a;
   a.insert(2, 0);
   a.insert(1, 0);
   a.insert(2, 0);
   a.insert(3, 2);
-  a.clear();
-  a.insert(2, 0);
   a.print_list();
+  a.clear();
+  a.insert(3, 0);
+  a.insert(4, 78);
+  a.insert(2, 1);
+  temp = a.find(4);
+  a.remove(temp);
+  a.print_list();
+  std::cout<< "\n" << a.size();
 }

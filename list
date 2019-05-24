@@ -28,7 +28,6 @@ public:
     Node<T> *temp = new Node<T>;
     if (pos == m_size)
     {
-      m_size++;
       push_back(value);
     }
     else if (pos > m_size)

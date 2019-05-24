@@ -158,6 +158,7 @@ public:
       delete Head;
       Head = Tail;
     }
+    m_size = 0;
   }
   
   /*Prints list to stdout*/
@@ -183,5 +184,7 @@ int main()
   a.insert(1, 0);
   a.insert(2, 0);
   a.insert(3, 2);
+  a.clear();
+  a.insert(2, 0);
   a.print_list();
 }

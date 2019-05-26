@@ -273,6 +273,61 @@ void CountingSort(std::vector<int> &a, int low, int high)
   }
 }
 
+template <typename T>
+void Merge(std::vector<T> &a, int left, int middle, int right)
+{
+  int s1 = middle - left + 1;
+  int s2 = right - middle;
+  std::vector<T> temp1 (s1);
+  std::vector<T> temp2 (s2);
+  for (int i = 0; i < s1; i++)
+  {
+    temp1[i] = a[left + i];
+  }
+  for (int i = 0; i < s2; i++)
+  {
+    temp2[i] = a[middle + 1 + i];
+  }
+  int index = left, i = 0, j = 0;
+  while (i < s1 && j < s2)
+  {
+    if (temp1[i] <= temp2[j])
+    {
+      a[index] = temp1[i];
+      i++;
+    }
+    else
+    {
+      a[index] = temp2[j];
+      j++; 
+    }
+    index++;
+  }
+  while (i < s1)
+  {
+    a[index] = temp1[i];
+    index++;
+    i++;
+  }
+  while (j < s2)
+  {
+    a[index] = temp2[j];
+    index++;
+    j++;
+  }
+}
+
+template <typename T>
+void MergeSort(std::vector<T> &a, int left, int right)
+{
+  if (left < right)
+  {
+    int middle = left + (right - left)/2;
+    MergeSort(a, left, middle);
+    MergeSort(a, middle + 1, right);
+    Merge(a, left, middle, right);
+  }
+}
 
 
 int main()
@@ -296,9 +351,9 @@ int main()
   std::vector<int> b;
   for(int i = 0; i < 15; i++)
   {
-    b.push_back(Generator(-100, 10));
+    b.push_back(Generator(-10, 10));
   }
   Print(b);
-  CountingSort(b, Low(b), High(b));
+  MergeSort(b, 0, b.size() - 1);
   Print(b);
 }

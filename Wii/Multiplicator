@@ -1,6 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
+
+int Generator(int low, int high)
+{
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> ndis(low, high);
+  return ndis(gen);
+}
+
+template <typename T>
+void Print(std::vector<T> &a)
+{
+  for (int i = 0; i < a.size(); i++)
+  {
+    std::cout << a[i] << " ";
+  }
+  std::cout << "\n";
+}
 
 template<typename T>
 class Node
@@ -198,17 +217,75 @@ void InsertionSort(std::vector<T> &a)
   }
 }
 
+template <typename T>
+void QuickSort(std::vector<T> &a, int left, int right)
+{
+  int index;
+  if (left < right)
+  {
+    T pivot = a[right];
+    int i = left - 1;
+    for (int j = left; j <= right - 1; j++)
+    {
+      if (a[j] < pivot)
+      {
+        i++;
+        std::swap(a[i], a[j]);
+      }
+    }
+    std::swap(a[i + 1], a[right]);
+    index = i + 1;
+    QuickSort(a, left, index - 1);
+    QuickSort(a, index + 1, right);
+  }
+}
+
+void CountingSort(std::vector<int> &a, int low, int high)
+{
+  int size = high - low + 1;
+  int shift = 0 - low;
+  std::vector<int> temp(size, 0);
+  int index = 0;
+  for (int i = 0; i < a.size(); i++)
+  {
+    temp[a[i] + shift]++;
+  }
+  for (int i = 0; i < temp.size(); i++)
+  {
+    for (int j = 0; j < temp[i]; j++)
+    {
+      a[index] = i - shift;
+      index++;
+    }
+  }
+}
+
+
+
 int main()
 {
   std::vector<std::string> v;
-  v.push_back("man");
-  v.push_back("joj");
-  v.push_back("oh");
-  v.push_back("fight1");
-  v.push_back("nick");
-  InsertionSort(v);
-  for(int i = 0; i < v.size(); i++)
+  std::vector<int> a;
+  for(int i = 0; i < 10; i++)
   {
-    std::cout << v[i] << " ";
+    a.push_back(Generator(1, 10));
   }
+  v.push_back("azbika");
+  v.push_back("123v2v");
+  v.push_back("v0v");
+  v.push_back("1vv");
+  v.push_back("morrorv");
+  QuickSort(v, 0, v.size() - 1);
+  Print(v);
+  Print(a);
+  QuickSort(a, 0, a.size() - 1);
+  Print(a);
+  std::vector<int> b;
+  for(int i = 0; i < 15; i++)
+  {
+    b.push_back(Generator(-100, 100));
+  }
+  Print(b);
+  CountingSort(b, -100, 100);
+  Print(b);
 }

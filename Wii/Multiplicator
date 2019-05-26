@@ -2,7 +2,9 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <algorithm>
 
+/*Auxiliary method for generating numbers in chosen range*/
 int Generator(int low, int high)
 {
   std::random_device rd;
@@ -11,6 +13,7 @@ int Generator(int low, int high)
   return ndis(gen);
 }
 
+/*Function that prints all elements from vector*/
 template <typename T>
 void Print(std::vector<T> &a)
 {
@@ -240,6 +243,16 @@ void QuickSort(std::vector<T> &a, int left, int right)
   }
 }
 
+/*Auxiliary methods for finding minimum and maximum elements in vector*/
+int Low(std::vector<int> &a)
+{
+  return *min_element(a.begin(), a.end());
+}
+int High(std::vector<int> &a)
+{
+  return *max_element(a.begin(), a.end());
+}
+
 void CountingSort(std::vector<int> &a, int low, int high)
 {
   int size = high - low + 1;
@@ -283,9 +296,9 @@ int main()
   std::vector<int> b;
   for(int i = 0; i < 15; i++)
   {
-    b.push_back(Generator(-100, 100));
+    b.push_back(Generator(-100, 10));
   }
   Print(b);
-  CountingSort(b, -100, 100);
+  CountingSort(b, Low(b), High(b));
   Print(b);
 }

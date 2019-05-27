@@ -45,7 +45,35 @@ public:
   {
     return m_size;
   }
-  
+  Node<T> *GetHead()
+  {
+    return Head;
+  }
+  Node<T> *GetTail()
+  {
+    return Tail;
+  }
+
+  Node<T> *get (int pos)
+  {
+    Node<T> *temp = Head;
+    int count = 0;
+    if(temp == nullptr)
+    {
+      return nullptr;
+    }
+    while(temp != nullptr)
+    {
+      if(count == pos)
+      {
+        return temp;
+      }
+      temp = temp->next;
+      count++;
+    }
+    return nullptr;
+  }
+
   /*Inserts node with input value to specified position*/
   Node<T> *insert (T value, int pos) 
   {
@@ -329,6 +357,34 @@ void MergeSort(std::vector<T> &a, int left, int right)
   }
 }
 
+void RadixSort(std::vector<int> &a, int maximum)
+{
+  int step = 0, temp = maximum;
+  std::vector<LinkedList<int>> bucket (10);
+  while (temp > 0)
+  {
+    temp = temp / 10;
+    step++;
+  }
+}
+
+template <typename T>
+void InsertionSortList(LinkedList<T> &a)
+{
+  int i, j;
+  T key;
+  for (i = 1; i < a.size(); i++)
+  {
+    key = a.get(i)->value;
+    j = i - 1;
+    while(j >= 0 && a.get(j)->value > key)
+    {
+      j--;
+    }
+    a.insert(key, j + 1);
+    a.remove(a.get(i + 1));
+  }
+}
 
 int main()
 {
@@ -356,4 +412,25 @@ int main()
   Print(b);
   MergeSort(b, 0, b.size() - 1);
   Print(b);
+
+  LinkedList<int> man;
+  man.push_back(109);
+  man.push_back(10);
+  man.push_back(9);
+  man.push_back(5);
+  man.push_back(3);
+  man.push_back(2);
+  man.push_back(1);
+  man.push_back(0);
+  man.print_list();
+  InsertionSortList(man);
+  man.print_list();
+
+  LinkedList<std::string> bob;
+  bob.push_back("man");
+  bob.push_back("1man");
+  bob.push_back("aman");
+  bob.push_back("a1man");
+  InsertionSortList(bob);
+  bob.print_list();
 }

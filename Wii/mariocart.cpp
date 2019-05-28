@@ -501,14 +501,60 @@ void QuickSortList(LinkedList<T> &a, int left, int right)
   }
 }
 
+template <typename T>
+void MergeList(LinkedList<T> &a, int left, int middle, int right)
+{
+  int s1 = middle + 1;
+  if (a.get(middle)->value <= a.get(s1)->value)
+  {
+    return;
+  }
+  while (left <= middle && s1 <= right)
+  {
+    if (a.get(left)->value <= a.get(s1)->value)
+    {
+      left++;
+    }
+    else
+    {
+      T temp = a.get(s1)->value;
+      int index = s1;
+      a.change(a.get(s1), s1, left);
+      left++;
+      middle++;
+      s1++;
+    }
+  }
+}
+
+template <typename T>
+void MergeSortList(LinkedList<T> &a, int left, int right)
+{
+  if (left < right)
+  {
+    int middle = left + (right - left)/2;
+    MergeSortList(a, left, middle);
+    MergeSortList(a, middle + 1, right);
+    MergeList(a, left, middle, right);
+  }
+}
+
+template <typename T>
+void RadixSortTen(LinkedList<T> &a)
+{
+
+}
+
 int main()
 {
-  LinkedList<int> bob;
-  for (int i = 0; i <= 21; i++)
+  LinkedList<std::string> bob;
+  for (int i = 0; i <= 5; i++)
   {
-    bob.push_back(Generator(-10, 99));
+    bob.push_back("flex");
   }
+  bob.push_back("aslk1");
+  bob.push_back("1uno");
   bob.print_list();
-  QuickSortList(bob, 0, 21);
+  MergeSortList(bob, 0, bob.size() - 1);
   bob.print_list();
 }

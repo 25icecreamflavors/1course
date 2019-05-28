@@ -539,22 +539,58 @@ void MergeSortList(LinkedList<T> &a, int left, int right)
   }
 }
 
-template <typename T>
-void RadixSortTen(LinkedList<T> &a)
+void RadixSortTen(std::vector<int> &a, int length)
 {
-
+  int step = length - 1, t = 100;
+  std::vector<LinkedList<int>> bucket (10);
+  for(int i = 0; i < a.size(); i++)
+  {
+    bucket[a[i] % 10].push_back(a[i]);
+  }
+  while(step > 0)
+  {
+    int temp;
+    for(int i = 0; i < 10; i++)
+    {
+      for(int j = bucket[i].size() - 1; j >= 0; j--)
+      {
+        temp = (bucket[i].get(j)->value) % t;
+        temp = temp - ((bucket[i].get(j)->value) % (t/10));
+        bucket[temp].push_back(bucket[i].get(j)->value);
+        bucket[i].remove(bucket[i].get(j));
+      }
+    }
+    t = t * 10;
+    std::cout << "hi" << "\n";
+    step--;
+  }
+  int index = 0;
+  for(int i = 0; i < 10; i++)
+  {
+    for(int j = 0; j < bucket[i].size(); j++)
+    {
+      a[index] = bucket[i].get(j)->value;
+      index++;
+    }
+  }
 }
 
 int main()
 {
-  LinkedList<std::string> bob;
-  for (int i = 0; i <= 5; i++)
+  std::vector<int> a;
+  for (int i = 0; i <= 10; i++)
   {
-    bob.push_back("flex");
+    a.push_back(Generator(0, 100));
   }
-  bob.push_back("aslk1");
-  bob.push_back("1uno");
-  bob.print_list();
-  MergeSortList(bob, 0, bob.size() - 1);
-  bob.print_list();
+  Print(a);
+  int m = High(a), count = 0;
+  while (m > 0)
+  {
+    m = m / 10;
+    count++;
+  }
+  std::cout << count << "\n";
+  RadixSortTen(a, count);
+  Print(a);
+  std::cout << 8 % 100;
 }

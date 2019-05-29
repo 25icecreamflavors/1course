@@ -14,6 +14,43 @@ int Generator(int low, int high)
   return ndis(gen);
 }
 
+/*Auxiliary method for generating string of given size*/
+std::string GeneratorS(int size)
+{
+  std::string str("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+  std::string result;
+  std::random_device rd;
+  std::mt19937 generator(rd());
+  for (int i = 0; i < size; i++)
+  {
+    std::shuffle(str.begin(), str.end(), generator);
+    result = result + str.substr(0, 1);
+  }
+  return result;
+}
+
+/*Auxiliary method for generating vector of random integers*/
+std::vector<int> RandomVectorInt(int size, int low, int high)
+{
+  std::vector<int> v;
+  for (int i = 0; i < size; i++)
+  {
+    v.push_back(Generator(low, high));
+  }
+  return v;
+}
+
+/*Auxiliary method for generating vector of random strings*/
+std::vector<std::string> RandomVector(int size, int low, int high)
+{
+  std::vector<std::string> v;
+  for(int i = 0; i < size; i++)
+  {
+    v.push_back(GeneratorS(Generator(low, high)));
+  }
+  return v;
+}
+
 /*Function that prints all elements from vector*/
 template <typename T>
 void Print(std::vector<T> &a)
@@ -646,13 +683,10 @@ void RadixSortTwo(std::vector<int> &a, int len)
 
 int main()
 {
-  std::vector<int> a;
-  a.push_back(6);
-  a.push_back(0);
-  a.push_back(1);
-  a.push_back(0);
-  Print(a);
+  std::vector<std::string> a;
   LinkedList<int> b;
-  b = Convert(a);
-  b.print_list();
+  a = RandomVector(20, 1, 6);
+  Print(a);
+  MergeSort(a, 0, 19);
+  Print(a);
 }

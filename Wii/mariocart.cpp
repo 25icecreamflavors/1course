@@ -53,6 +53,24 @@ int GetBit(int a, int i)
   return a;
 }
 
+/*Get data in CSV format from the vector*/
+void GetCSV(std::vector<std::vector<int>> &v)
+{
+  std::ofstream myfile;
+  myfile.open ("TimeData.csv");
+  int j = 0;
+  for (int i = 0; i < v[0].size(); i++)
+  {
+    myfile << i + 1;
+    for(int j = 0; j < v.size(); j++)
+    {
+      myfile << "," << v[j][i];
+    }
+    myfile << "\n";
+  }
+  myfile.close();
+}
+
 template<typename T>
 class Node
 {
@@ -560,7 +578,7 @@ void MergeSortList(LinkedList<T> &a, int left, int right)
 
 void RadixSortTen(std::vector<int> &a, int length)
 {
-  int pos = 1, index = 0;
+  int pos, index = 0;
   std::vector<LinkedList<int>> bucket (10);
   for (pos = 1; pos <= length; pos++)
   {
@@ -589,7 +607,7 @@ void RadixSortTen(std::vector<int> &a, int length)
 void RadixSortTwo(std::vector<int> &a, int len)
 {
   int length = log2(len) + 1;
-  int pos = 0, index = 0;
+  int pos, index = 0;
   std::vector<LinkedList<int>> bucket (2);
   for (pos = 0; pos < length; pos++)
   {
@@ -617,14 +635,4 @@ void RadixSortTwo(std::vector<int> &a, int len)
 
 int main()
 {
-  std::vector<int> a;
-  for (int i = 0; i <= 100; i++)
-  {
-    a.push_back(Generator(3, 8));
-  }
-  Print(a);
-  int m = High(a), count = 0;
-  std::cout << High(a) << "\n";
-  RadixSortTwo(a, High(a));
-  Print(a);
 }

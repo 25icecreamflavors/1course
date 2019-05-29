@@ -351,6 +351,17 @@ public:
 };
 
 template <typename T>
+LinkedList<T> Convert(std::vector<T> &a)
+{
+  LinkedList<T> result;
+  for (int i = 0; i < a.size(); i++)
+  {
+    result.push_back(a[i]);
+  }
+  return result;
+}
+
+template <typename T>
 void InsertionSort(std::vector<T> &a)
 {
   int i, j, n;
@@ -635,4 +646,13 @@ void RadixSortTwo(std::vector<int> &a, int len)
 
 int main()
 {
+  std::vector<int> a;
+  a.push_back(6);
+  a.push_back(0);
+  a.push_back(1);
+  a.push_back(0);
+  Print(a);
+  LinkedList<int> b;
+  b = Convert(a);
+  b.print_list();
 }

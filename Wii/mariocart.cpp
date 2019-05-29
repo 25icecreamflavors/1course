@@ -3,6 +3,7 @@
 #include <string>
 #include <random>
 #include <algorithm>
+#include <bits/stdc++.h>
 
 /*Auxiliary method for generating numbers in chosen range*/
 int Generator(int low, int high)
@@ -32,6 +33,24 @@ int Low(std::vector<int> &a)
 int High(std::vector<int> &a)
 {
   return *max_element(a.begin(), a.end());
+}
+
+/*Another one method just to get needed digit from integer */
+int GetDigit(int a, int pos)
+{
+  for (int i = 0; i < pos - 1; i++)
+  {
+    a = a / 10;
+  }
+  a = a % 10;
+  return a;
+}
+
+/*Auxiliary method to get bit at position i*/
+int GetBit(int a, int i)
+{
+  a = (a >> i) & 1U;
+  return a;
 }
 
 template<typename T>
@@ -541,56 +560,71 @@ void MergeSortList(LinkedList<T> &a, int left, int right)
 
 void RadixSortTen(std::vector<int> &a, int length)
 {
-  int step = length - 1, t = 100;
+  int pos = 1, index = 0;
   std::vector<LinkedList<int>> bucket (10);
-  for(int i = 0; i < a.size(); i++)
+  for (pos = 1; pos <= length; pos++)
   {
-    bucket[a[i] % 10].push_back(a[i]);
-  }
-  while(step > 0)
-  {
-    int temp;
+    for(int i = 0; i < a.size(); i++)
+    {
+      int x;
+      x = GetDigit(a[i], pos);
+      bucket[x].push_back(a[i]);
+    }
     for(int i = 0; i < 10; i++)
     {
-      for(int j = bucket[i].size() - 1; j >= 0; j--)
+      for(int j = 0; j < bucket[i].size(); j++)
       {
-        temp = (bucket[i].get(j)->value) % t;
-        temp = temp - ((bucket[i].get(j)->value) % (t/10));
-        bucket[temp].push_back(bucket[i].get(j)->value);
-        bucket[i].remove(bucket[i].get(j));
+        a[index] = bucket[i].get(j)->value;
+        index++;
       }
     }
-    t = t * 10;
-    std::cout << "hi" << "\n";
-    step--;
-  }
-  int index = 0;
-  for(int i = 0; i < 10; i++)
-  {
-    for(int j = 0; j < bucket[i].size(); j++)
+    for(int i = 0; i < 10; i++)
     {
-      a[index] = bucket[i].get(j)->value;
-      index++;
+      bucket[i].clear();
     }
+    index = 0;
+  }
+}
+
+void RadixSortTwo(std::vector<int> &a, int len)
+{
+  int length = log2(len) + 1;
+  int pos = 0, index = 0;
+  std::vector<LinkedList<int>> bucket (2);
+  for (pos = 0; pos < length; pos++)
+  {
+    for (int i = 0; i < a.size(); i++)
+    {
+      int x;
+      x = GetBit(a[i], pos);
+      bucket[x].push_back(a[i]);
+    }
+    for(int i = 0; i < 2; i++)
+    {
+      for(int j = 0; j < bucket[i].size(); j++)
+      {
+        a[index] = bucket[i].get(j)->value;
+        index++;
+      }
+    }
+    for(int i = 0; i < 2; i++)
+    {
+      bucket[i].clear();
+    }
+    index = 0;
   }
 }
 
 int main()
 {
   std::vector<int> a;
-  for (int i = 0; i <= 10; i++)
+  for (int i = 0; i <= 100; i++)
   {
-    a.push_back(Generator(0, 100));
+    a.push_back(Generator(3, 8));
   }
   Print(a);
   int m = High(a), count = 0;
-  while (m > 0)
-  {
-    m = m / 10;
-    count++;
-  }
-  std::cout << count << "\n";
-  RadixSortTen(a, count);
+  std::cout << High(a) << "\n";
+  RadixSortTwo(a, High(a));
   Print(a);
-  std::cout << 8 % 100;
 }

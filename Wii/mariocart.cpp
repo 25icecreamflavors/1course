@@ -817,6 +817,48 @@ void TestString(int length, std::vector<std::vector<double>> &a)
   a[5].push_back(res5);
 }
 
+void TestN(int length, std::vector<std::vector<double>> &a)
+{
+  double res = 0, res1 = 0, res2 = 0, res3 = 0, res4 = 0, res5 = 0;
+  for (int i = 0; i < 3; i++)
+  {
+    std::vector<int> save, temp;
+    save = RandomVectorInt(length, 1, 100000000);
+    temp = save;
+    int k = High(temp), s = 0;
+    while(k > 0)
+    {
+      k = k / 10;
+      s++;
+    }
+
+    auto start = std::chrono::system_clock::now();
+    CountingSort(temp, Low(temp), High(temp));
+    auto end = std::chrono::system_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    res = res + time.count();
+    temp = save;
+
+    auto start2 = std::chrono::system_clock::now();
+    RadixSortTen(temp, s);
+    auto end2 = std::chrono::system_clock::now();
+    auto time2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2);
+    res2 = res2 + time2.count();
+    temp = save;
+
+    auto start3 = std::chrono::system_clock::now();
+    RadixSortTwo(temp, High(temp));
+    auto end3 = std::chrono::system_clock::now();
+    auto time3 = std::chrono::duration_cast<std::chrono::milliseconds>(end3 - start3);
+    res3 = res3 + time3.count();
+  }
+  res = res / 3;
+  res2 = res2 / 3;
+  res3 = res3 / 3;
+  a[0].push_back(res);
+  a[1].push_back(res3);
+}
+
 int main()
 {
   std::vector<int> a;

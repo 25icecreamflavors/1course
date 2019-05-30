@@ -4,6 +4,10 @@
 #include <random>
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <chrono>
+#include <ctime>
+
+//800 строк, потому что программа умеет всё, от сортировки чисел до бронирования отелей. TRIVAGO!
 
 /*Auxiliary method for generating numbers in chosen range*/
 int Generator(int low, int high)
@@ -91,14 +95,14 @@ int GetBit(int a, int i)
 }
 
 /*Get data in CSV format from the vector*/
-void GetCSV(std::vector<std::vector<int>> &v)
+void GetCSV(std::vector<std::vector<double>> &v, std::vector<int> &num)
 {
   std::ofstream myfile;
   myfile.open ("TimeData.csv");
   int j = 0;
   for (int i = 0; i < v[0].size(); i++)
   {
-    myfile << i + 1;
+    myfile << num[i];
     for(int j = 0; j < v.size(); j++)
     {
       myfile << "," << v[j][i];
@@ -680,71 +684,149 @@ void RadixSortTwo(std::vector<int> &a, int len)
     index = 0;
   }
 }
-//std::vector<double>
-void TestInteger(int length)
+
+void TestInteger(int length, std::vector<std::vector<double>> &a)
 {
-  for(int i = 1; i <= length; i = i + 500)
+  double res = 0, res1 = 0, res2 = 0, res3 = 0, res4 = 0, res5 = 0;
+  for (int i = 0; i < 3; i++)
   {
     std::vector<int> save, temp;
     LinkedList<int> savelist;
-    save = RandomVectorInt(i, -2147483648, 2147483647);
+    save = RandomVectorInt(length, -2147483648, 2147483647);
     savelist = Convert(save);
     temp = save;
 
+    auto start = std::chrono::system_clock::now();
     InsertionSort(temp);
+    auto end = std::chrono::system_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    res = res + time.count();
+
+    auto start1 = std::chrono::system_clock::now();
     InsertionSortList(savelist);
+    auto end1 = std::chrono::system_clock::now();
+    auto time1 = std::chrono::duration_cast<std::chrono::milliseconds>(end1 - start1);
+    res1 = res1 + time1.count();
     temp = save;
     savelist = Convert(save);
 
+    auto start2 = std::chrono::system_clock::now();
     MergeSort(temp, 0, temp.size() - 1);
+    auto end2 = std::chrono::system_clock::now();
+    auto time2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2);
+    res2 = res2 + time2.count();
+
+    auto start3 = std::chrono::system_clock::now();
     MergeSortList(savelist, 0, savelist.size() - 1);
+    auto end3 = std::chrono::system_clock::now();
+    auto time3 = std::chrono::duration_cast<std::chrono::milliseconds>(end3 - start3);
+    res3 = res3 + time3.count();
     temp = save;
     savelist = Convert(save);
 
+    auto start4 = std::chrono::system_clock::now();
     QuickSort(temp, 0, temp.size() - 1);
+    auto end4 = std::chrono::system_clock::now();
+    auto time4 = std::chrono::duration_cast<std::chrono::milliseconds>(end4 - start4);
+    res4 = res4 + time4.count();
+
+    auto start5 = std::chrono::system_clock::now();
     QuickSortList(savelist, 0, savelist.size() - 1);
+    auto end5 = std::chrono::system_clock::now();
+    auto time5 = std::chrono::duration_cast<std::chrono::milliseconds>(end5 - start5);
+    res5 = res5 + time5.count();
     temp = save;
-    std::cout << i << "a";
   }
+  res = res / 3;
+  res1 = res1 / 3;
+  res2 = res2 / 3;
+  res3 = res3 / 3;
+  res4 = res4 / 3;
+  res5 = res5 / 3;
+  a[0].push_back(res);
+  a[1].push_back(res1);
+  a[2].push_back(res2);
+  a[3].push_back(res3);
+  a[4].push_back(res4);
+  a[5].push_back(res5);
 }
 
-void TestString(int length)
+void TestString(int length, std::vector<std::vector<double>> &a)
 {
-  for(int i = 1; i <= length; i = i * 500)
+  double res = 0, res1 = 0, res2 = 0, res3 = 0, res4 = 0, res5 = 0;
+  for (int i = 0; i < 3; i++)
   {
     std::vector<std::string> save, temp;
     LinkedList<std::string> savelist;
-    save = RandomVector(i, 1, 5);
+    save = RandomVector(length, 1, 5);
     savelist = Convert(save);
     temp = save;
 
+    auto start = std::chrono::system_clock::now();
     InsertionSort(temp);
+    auto end = std::chrono::system_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    res = res + time.count();
+
+    auto start1 = std::chrono::system_clock::now();
     InsertionSortList(savelist);
+    auto end1 = std::chrono::system_clock::now();
+    auto time1 = std::chrono::duration_cast<std::chrono::milliseconds>(end1 - start1);
+    res1 = res1 + time1.count();
     temp = save;
     savelist = Convert(save);
 
+    auto start2 = std::chrono::system_clock::now();
     MergeSort(temp, 0, temp.size() - 1);
+    auto end2 = std::chrono::system_clock::now();
+    auto time2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2);
+    res2 = res2 + time2.count();
+
+    auto start3 = std::chrono::system_clock::now();
     MergeSortList(savelist, 0, savelist.size() - 1);
+    auto end3 = std::chrono::system_clock::now();
+    auto time3 = std::chrono::duration_cast<std::chrono::milliseconds>(end3 - start3);
+    res3 = res3 + time3.count();
     temp = save;
     savelist = Convert(save);
 
+    auto start4 = std::chrono::system_clock::now();
     QuickSort(temp, 0, temp.size() - 1);
-    Print(temp);
-    QuickSortList(savelist, 0, savelist.size() - 1);
-    temp = save;
-    std::cout << i << "\n";
-  }
-}
+    auto end4 = std::chrono::system_clock::now();
+    auto time4 = std::chrono::duration_cast<std::chrono::milliseconds>(end4 - start4);
+    res4 = res4 + time4.count();
 
+    auto start5 = std::chrono::system_clock::now();
+    QuickSortList(savelist, 0, savelist.size() - 1);
+    auto end5 = std::chrono::system_clock::now();
+    auto time5 = std::chrono::duration_cast<std::chrono::milliseconds>(end5 - start5);
+    res5 = res5 + time5.count();
+    temp = save;
+  }
+  res = res / 3;
+  res1 = res1 / 3;
+  res2 = res2 / 3;
+  res3 = res3 / 3;
+  res4 = res4 / 3;
+  res5 = res5 / 3;
+  a[0].push_back(res);
+  a[1].push_back(res1);
+  a[2].push_back(res2);
+  a[3].push_back(res3);
+  a[4].push_back(res4);
+  a[5].push_back(res5);
+}
 
 int main()
 {
   std::vector<int> a;
   LinkedList<int> b,c,d;
-  std::vector<double> time;
-  TestInteger(5000);
-  Print(a);
-
+  std::vector<std::vector<double>> time (6);
+  std::vector<int> tests;
+  tests.push_back(4000);
+  for (int i = 0; i < tests.size(); i++)
+  {
+    TestInteger(tests[i], time);
+  }
+  GetCSV(time, tests);
 }
-// 2147483647
-//-2147483648

@@ -680,13 +680,71 @@ void RadixSortTwo(std::vector<int> &a, int len)
     index = 0;
   }
 }
+//std::vector<double>
+void TestInteger(int length)
+{
+  for(int i = 1; i <= length; i = i + 500)
+  {
+    std::vector<int> save, temp;
+    LinkedList<int> savelist;
+    save = RandomVectorInt(i, -2147483648, 2147483647);
+    savelist = Convert(save);
+    temp = save;
+
+    InsertionSort(temp);
+    InsertionSortList(savelist);
+    temp = save;
+    savelist = Convert(save);
+
+    MergeSort(temp, 0, temp.size() - 1);
+    MergeSortList(savelist, 0, savelist.size() - 1);
+    temp = save;
+    savelist = Convert(save);
+
+    QuickSort(temp, 0, temp.size() - 1);
+    QuickSortList(savelist, 0, savelist.size() - 1);
+    temp = save;
+    std::cout << i << "a";
+  }
+}
+
+void TestString(int length)
+{
+  for(int i = 1; i <= length; i = i * 500)
+  {
+    std::vector<std::string> save, temp;
+    LinkedList<std::string> savelist;
+    save = RandomVector(i, 1, 5);
+    savelist = Convert(save);
+    temp = save;
+
+    InsertionSort(temp);
+    InsertionSortList(savelist);
+    temp = save;
+    savelist = Convert(save);
+
+    MergeSort(temp, 0, temp.size() - 1);
+    MergeSortList(savelist, 0, savelist.size() - 1);
+    temp = save;
+    savelist = Convert(save);
+
+    QuickSort(temp, 0, temp.size() - 1);
+    Print(temp);
+    QuickSortList(savelist, 0, savelist.size() - 1);
+    temp = save;
+    std::cout << i << "\n";
+  }
+}
+
 
 int main()
 {
-  std::vector<std::string> a;
-  LinkedList<int> b;
-  a = RandomVector(20, 1, 6);
+  std::vector<int> a;
+  LinkedList<int> b,c,d;
+  std::vector<double> time;
+  TestInteger(5000);
   Print(a);
-  MergeSort(a, 0, 19);
-  Print(a);
+
 }
+// 2147483647
+//-2147483648

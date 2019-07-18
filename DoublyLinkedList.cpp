@@ -188,7 +188,7 @@ int main()
   a.print_list();
   a.clear();
   a.insert(3, 0);
-  a.insert(4, 78);
+  a.insert(4, 7);
   a.insert(2, 1);
   temp = a.find(4);
   a.remove(temp);

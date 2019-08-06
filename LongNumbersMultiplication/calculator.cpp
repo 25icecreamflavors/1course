@@ -385,6 +385,7 @@ public:
             t1 = clock() - t1;
             flextime = flextime + t1;
         }
+
         time = time / 3;
         flextime = flextime / 3;
         time1.push_back(time);

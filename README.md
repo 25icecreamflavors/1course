@@ -1,1 +1,1 @@
-# Code from seminars and homework
+# Code from seminars and homework, first year in university

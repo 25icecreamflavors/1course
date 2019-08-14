@@ -21,6 +21,7 @@
 #include <cstddef>
 #include <stdio.h>
 #include <string.h>
+
 class BufferedWriter: public Writer
 {
 protected:

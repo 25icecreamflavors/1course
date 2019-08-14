@@ -46,3 +46,4 @@ void heapsort(T& a, size_t size, TPred pred)
         heapify(a, size, 0, pred);
     }
 }
+

@@ -55,5 +55,4 @@ def animate(i):
 
 anim = animation.FuncAnimation(fig, animate, init_func=init,
                                frames=frame_num, interval=6)
-
 plt.show()

@@ -4,7 +4,6 @@ import pylab
 import csv
 import matplotlib.pyplot as plt
 from matplotlib import style
-import webbrowser
 %matplotlib notebook
 
 style.use('classic')
@@ -16,7 +15,6 @@ x=[]
 y=[]
 x1=[]
 y1=[]
-webbrowser.open('https://www.youtube.com/watch?v=rEoRxWx4FeI')
 with open('TimeData.csv', 'r') as csvfile:
     plots= csv.reader(csvfile, delimiter=',')
     for row in plots:
